@@ -5,6 +5,9 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
+	
+
+
 	<head>
 		<title>RUSSELL NEXUS</title>
 		<link rel="icon" type="image/svg" href="/images/RussellNexusLogo-SVG.svg">
@@ -12,16 +15,117 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<meta name="facebook-domain-verification" content="e8v3xyq3ynfvg6y2045ct2qmftus2g" />
-	</head>
-	<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDYDZHFS3R"></script>
+
+
+
+		<!-- 1. Google Analytics 4 (GA4) Tag (Modified for Cookie Consent) -->
+<script async src="https://googletagmanager.com"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
+  // Step A: Set default state to DENIED (GDPR Compliant)
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'wait_for_update': 500
+  });
+
+  gtag('js', new Date());
   gtag('config', 'G-YDYDZHFS3R');
 </script>
+
+<!-- 2. Simple Cookie Consent Banner Interface -->
+<div id="cookie-banner" style="
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222222;
+  color: #ffffff;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  z-index: 99999;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+">
+  <span style="margin-right: 15px;">
+    We use cookies via Google Analytics to improve your experience. Read our 
+    <a href="/privacy.html" style="color: #38bdf8; text-decoration: underline;">Privacy Policy</a>.
+  </span>
+  <div>
+    <button id="btn-accept" style="
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin-right: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    ">Accept</button>
+    <button id="btn-decline" style="
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    ">Decline</button>
+  </div>
+</div>
+
+<!-- 3. Cookie Banner Logic Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var banner = document.getElementById('cookie-banner');
+    var acceptBtn = document.getElementById('btn-accept');
+    var declineBtn = document.getElementById('btn-decline');
+
+    // Check if user has already made a choice
+    var cookieChoice = localStorage.getItem('cookieConsent');
+
+    if (!cookieChoice) {
+      // Show the banner if no choice exists
+      banner.style.display = 'flex';
+    } else if (cookieChoice === 'granted') {
+      // If previously accepted, unlock Google Analytics tracking
+      updateConsent(true);
+    }
+
+    // Handle "Accept" click
+    acceptBtn.addEventListener('click', function() {
+      localStorage.setItem('cookieConsent', 'granted');
+      updateConsent(true);
+      banner.style.display = 'none';
+    });
+
+    // Handle "Decline" click
+    declineBtn.addEventListener('click', function() {
+      localStorage.setItem('cookieConsent', 'denied');
+      updateConsent(false);
+      banner.style.display = 'none';
+    });
+
+    // Function to inform Google Analytics of the user's permission
+    function updateConsent(isGranted) {
+      gtag('consent', 'update', {
+        'analytics_storage': isGranted ? 'granted' : 'denied'
+      });
+    }
+  });
+</script>
+
+	</head>
+
+
+
+
 	<body class="homepage is-preload">
 		<div id="page-wrapper">
 
